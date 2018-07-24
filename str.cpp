@@ -1,8 +1,14 @@
 #include<stdio.h>
 #include<assert.h>
 #include<string.h>
-#include"str.h"
-void StrAssign(Str *s,const char *t)//ÓÃ×Ö·û´®t³õÊ¼»¯´®s
+#define SIZE 20
+typedef struct Str
+{
+	char elem[SIZE];//ä¸²é•¿åº¦
+	int length;//æœ‰æ•ˆé•¿åº¦
+}Str;
+
+void StrAssign(Str *s,const char *t)//ç”¨å­—ç¬¦ä¸²tåˆå§‹åŒ–ä¸²s
 {
 	int i=0;
 	for(;*t!='\0';i++)
@@ -11,7 +17,7 @@ void StrAssign(Str *s,const char *t)//ÓÃ×Ö·û´®t³õÊ¼»¯´®s
 	}
 	s->length=i;
 }
-void StrCpy(Str *s,Str *t)//½«´®t¿½µ½´®sÀï
+void StrCpy(Str *s,Str *t)//å°†ä¸²tæ‹·åˆ°ä¸²sé‡Œ
 {
 	assert(t!=NULL);
 	int i=0;
@@ -22,7 +28,7 @@ void StrCpy(Str *s,Str *t)//½«´®t¿½µ½´®sÀï
 	s->length=i;
 }
 
-bool IsEmpty(Str *s)//ÅĞ¶Ï´®sÊÇ·ñÎª¿Õ
+bool IsEmpty(Str *s)//åˆ¤æ–­ä¸²sæ˜¯å¦ä¸ºç©º
 {
 	if(s->length=0)
 	{
@@ -33,17 +39,17 @@ bool IsEmpty(Str *s)//ÅĞ¶Ï´®sÊÇ·ñÎª¿Õ
 		return false;
 	}
 }
-int GetLength(Str *s)//µÃµ½´®µÄ³¤¶È
+int GetLength(Str *s)//å¾—åˆ°ä¸²çš„é•¿åº¦
 {
 	return s->length;
 }
 
-void Clear(Str *s)//Çå¿Õ´®s
+void Clear(Str *s)//æ¸…ç©ºä¸²s
 {
 	s->length=0;
 
 }
-bool SubStr(Str *s,Str *t,int pos,int len)//´Ó´®tµÄposÎ»ÖÃÌáÈ¡len¸ö³¤¶È×Ö·û·Åµ½´®s
+bool SubStr(Str *s,Str *t,int pos,int len)//ä»ä¸²tçš„posä½ç½®æå–lenä¸ªé•¿åº¦å­—ç¬¦æ”¾åˆ°ä¸²s
 {
 	assert(t!=NULL);
 	if(pos<0||pos>t->length||len>t->length)
@@ -57,7 +63,7 @@ bool SubStr(Str *s,Str *t,int pos,int len)//´Ó´®tµÄposÎ»ÖÃÌáÈ¡len¸ö³¤¶È×Ö·û·Åµ½´
 	s->length=len;
 	return true;
 }
-bool Insert(Str *s,int pos,Str *t)//ÔÚ´®sµÄposÎ»ÖÃ²åÈë´®t£¬´®sposÎ»ÖÃÖ®ºóµÄÖµ²»¸²¸Ç
+bool Insert(Str *s,int pos,Str *t)//åœ¨ä¸²sçš„posä½ç½®æ’å…¥ä¸²tï¼Œä¸²sposä½ç½®ä¹‹åçš„å€¼ä¸è¦†ç›–
 {
 	assert(s!=NULL);
 	assert(t!=NULL);
@@ -66,7 +72,7 @@ bool Insert(Str *s,int pos,Str *t)//ÔÚ´®sµÄposÎ»ÖÃ²åÈë´®t£¬´®sposÎ»ÖÃÖ®ºóµÄÖµ²»¸
 		return false;
 	}
 	int len=t->length;
-	for(int i=s->length;i>=pos;i--)//´Ó´®Î²ÒÀ´Îµ½posÎ»ÖÃÏòºóÅ²len¸ö³¤¶È
+	for(int i=s->length;i>=pos;i--)//ä»ä¸²å°¾ä¾æ¬¡åˆ°posä½ç½®å‘åæŒªlenä¸ªé•¿åº¦
 	{
 		s->elem[i+len]=s->elem[i];
 	}
@@ -77,7 +83,7 @@ bool Insert(Str *s,int pos,Str *t)//ÔÚ´®sµÄposÎ»ÖÃ²åÈë´®t£¬´®sposÎ»ÖÃÖ®ºóµÄÖµ²»¸
 	s->length+=len;
 	return true;
 }
-int BF(Str *s,Str *t,int pos)//´Ó´®sÀïÃæµÚpos¸öÎ»ÖÃ¿ªÊ¼µÚÒ»¸öÕÒµ½´®t,posÎ»ÖÃÊÇ×Ô¼º¸øµÄ
+int BF(Str *s,Str *t,int pos)//ä»ä¸²sé‡Œé¢ç¬¬posä¸ªä½ç½®å¼€å§‹ç¬¬ä¸€ä¸ªæ‰¾åˆ°ä¸²t,posä½ç½®æ˜¯è‡ªå·±ç»™çš„
 {
 	int i=pos;
 	int j=0;
@@ -107,7 +113,7 @@ int BF(Str *s,Str *t,int pos)//´Ó´®sÀïÃæµÚpos¸öÎ»ÖÃ¿ªÊ¼µÚÒ»¸öÕÒµ½´®t,posÎ»ÖÃÊÇ×Ô
 
 	
 }
-bool DeletePos(Str *s,int pos,int len)//´ÓsµÄposÎ»ÖÃÉ¾³ılen¸ö×Ö½Ú
+bool DeletePos(Str *s,int pos,int len)//ä»sçš„posä½ç½®åˆ é™¤lenä¸ªå­—èŠ‚
 {
 	assert(s!=NULL);
 	if(pos<0||pos>s->length||pos+len>s->length)
@@ -121,7 +127,7 @@ bool DeletePos(Str *s,int pos,int len)//´ÓsµÄposÎ»ÖÃÉ¾³ılen¸ö×Ö½Ú
 	s->length-=len;
 	return true;
 }
-bool Delete(Str *s,int pos,Str *t)//´ÓposÎ»ÖÃ¿ªÊ¼É¾³ı×Ó´®t
+bool Delete(Str *s,int pos,Str *t)//ä»posä½ç½®å¼€å§‹åˆ é™¤å­ä¸²t
 {
 	assert(s!=NULL);
 	assert(t!=NULL);
@@ -133,7 +139,7 @@ bool Delete(Str *s,int pos,Str *t)//´ÓposÎ»ÖÃ¿ªÊ¼É¾³ı×Ó´®t
 	DeletePos(s,n,t->length);
 	return true;
 }
-bool Replace(Str *s,Str *t,Str *v,int pos)//ÓÃvÌæ»»´®sµÄposÎ»ÖÃ¿ªÊ¼µÄµÚÒ»¸ö´®t
+bool Replace(Str *s,Str *t,Str *v,int pos)//ç”¨væ›¿æ¢ä¸²sçš„posä½ç½®å¼€å§‹çš„ç¬¬ä¸€ä¸ªä¸²t
 {
 	assert(s!=NULL);
 	assert(v!=NULL);
@@ -146,7 +152,7 @@ bool Replace(Str *s,Str *t,Str *v,int pos)//ÓÃvÌæ»»´®sµÄposÎ»ÖÃ¿ªÊ¼µÄµÚÒ»¸ö´®t
 	Insert(s,n,v);
 	return true;
 }
-bool ReplaceAll(Str *s,Str *t,Str *v)//½«ËùÓĞµÄ´®tÌæ»»³Év
+bool ReplaceAll(Str *s,Str *t,Str *v)//å°†æ‰€æœ‰çš„ä¸²tæ›¿æ¢æˆv
 {	assert(s!=NULL);
 	assert(t!=NULL);
 	while(Replace(s,t,v,0));
